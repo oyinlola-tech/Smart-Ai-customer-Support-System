@@ -1,0 +1,50 @@
+﻿@import url('https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+
+:root {
+  --bg: #f5f1ea;
+  --ink: #1f1c18;
+  --muted: #6f6861;
+  --accent: #e56b47;
+  --accent-2: #1c7c84;
+  --panel: #ffffff;
+  --panel-2: #fff7ef;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Space Grotesk', sans-serif;
+  color: var(--ink);
+  background: radial-gradient(circle at top left, #fff7ef, transparent 55%),
+    radial-gradient(circle at 20% 20%, rgba(229, 107, 71, 0.2), transparent 40%),
+    radial-gradient(circle at 80% 10%, rgba(28, 124, 132, 0.15), transparent 45%),
+    var(--bg);
+  min-height: 100vh;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+.glass {
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(10px);
+}
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fadeUp {
+  animation: fadeUp 0.4s ease-out;
+}
