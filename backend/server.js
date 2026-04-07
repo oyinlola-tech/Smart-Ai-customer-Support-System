@@ -12,6 +12,8 @@ const sanitizeMiddleware = require('./middlewares/sanitize');
 const aiRoutes = require('./routes/aiRoutes');
 const healthRoutes = require('./routes/healthRoutes');
 const modelRoutes = require('./routes/modelRoutes');
+const whatsappRoutes = require('./routes/whatsappRoutes');
+const onboardingRoutes = require('./routes/onboardingRoutes');
 require('./config/db');
 
 dotenv.config();
@@ -35,6 +37,8 @@ app.use(sanitizeMiddleware);
 app.use('/api/health', healthRoutes);
 app.use('/api/ai', aiRoutes);
 app.use('/api/models', modelRoutes);
+app.use('/api/whatsapp', whatsappRoutes);
+app.use('/api/onboarding', onboardingRoutes);
 app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 const frontendPath = path.join(__dirname, '..', 'frontend');

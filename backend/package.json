@@ -18,11 +18,11 @@
     "helmet": "^8.1.0",
     "lowdb": "^1.0.0",
     "morgan": "^1.10.1",
+    "qrcode-terminal": "^0.12.0",
     "smart-ai-support-system": "file:..",
     "swagger-jsdoc": "^6.2.8",
     "swagger-ui-express": "^5.0.1",
-    "qrcode-terminal": "^0.12.0",
-    "whatsapp-web.js": "^1.34.6"
+    "whatsapp-web.js": "^1.24.0"
   },
   "devDependencies": {
     "nodemon": "^3.1.14"

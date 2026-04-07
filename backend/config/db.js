@@ -11,7 +11,10 @@ db.defaults({
   intents: [],
   salesReplies: [],
   productAnswers: [],
-  summaries: []
+  summaries: [],
+  whatsappProfiles: [],
+  whatsappStates: [],
+  whatsappMessages: []
 }).write();
 
 module.exports = db;

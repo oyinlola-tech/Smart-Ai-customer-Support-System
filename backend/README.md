@@ -25,3 +25,10 @@ Set `MODEL` in your `.env` to a currently supported Groq model.
 ## Frontend
 The static frontend is served by the backend at http://localhost:5000/
 Client routes: /chat, /sales, /intent, /product, /summary
+
+## WhatsApp Integration
+1. Set `WA_OWNER_NUMBER` in `.env` with your WhatsApp number (include country code).
+2. Start the backend.
+3. Call `POST /api/whatsapp/start` to generate a QR code in the terminal.
+4. Scan the QR code using WhatsApp.
+5. Send a message from the owner number to complete setup prompts.

@@ -9,6 +9,8 @@ const titleMap = {
   intent: 'Intent Detection',
   product: 'Product Q&A',
   summary: 'Summarization'
+  ,
+  whatsapp: 'WhatsApp'
 };
 
 export const showSection = (id) => {

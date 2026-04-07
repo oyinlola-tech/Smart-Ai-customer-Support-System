@@ -24,6 +24,7 @@
           <button data-section="intent" class="nav-item">Intent Detection</button>
           <button data-section="product" class="nav-item">Product Q&A</button>
           <button data-section="summary" class="nav-item">Summarization</button>
+          <button data-section="whatsapp" class="nav-item">WhatsApp</button>
         </nav>
         <div class="status-card">
           <div>
@@ -35,6 +36,7 @@
       </aside>
 
       <main class="content">
+        <div class="banner" id="setup-banner">Setup incomplete. Finish onboarding in WhatsApp section.</div>
         <header class="topbar">
           <div>
             <span class="tag">Workspace</span>
@@ -142,6 +144,45 @@
             <span class="status" id="summary-status"></span>
           </div>
           <div class="output" id="summary-output"></div>
+        </section>
+
+        <section id="whatsapp" class="panel section">
+          <h3>WhatsApp Control</h3>
+          <p>1. Start client · 2. Scan QR · 3. Complete setup in this dashboard</p>
+          <div class="whatsapp-grid">
+            <div class="card">
+              <h4>Client Status</h4>
+              <p id="wa-status">Checking...</p>
+              <div class="form-row">
+                <button id="wa-start">Start</button>
+                <button class="secondary" id="wa-stop">Stop</button>
+              </div>
+              <div class="output" id="wa-qr">QR code appears in terminal.</div>
+            </div>
+          <div class="card">
+            <h4>Onboarding Progress</h4>
+            <div class="progress-bar">
+              <div id="onboarding-progress-bar" class="progress-fill"></div>
+            </div>
+            <p class="hint" id="onboarding-progress-label">0% complete</p>
+            <div class="output" id="onboarding-steps"></div>
+            <button class="secondary" id="onboarding-reset">Reset Setup</button>
+          </div>
+          <div class="card">
+            <h4>Message Logs</h4>
+            <div class="output" id="whatsapp-logs"></div>
+            <button class="secondary" id="logs-refresh">Refresh Logs</button>
+          </div>
+          </div>
+          <div class="card">
+            <h4>Edit Business Profile</h4>
+            <p class="hint">This replaces WhatsApp onboarding. Fill once, save, and replies go live.</p>
+            <form id="onboarding-form" class="form-stack"></form>
+            <div class="form-row">
+              <button id="onboarding-save" type="button">Save Profile</button>
+              <span class="status" id="onboarding-status"></span>
+            </div>
+          </div>
         </section>
 
         <footer class="footer">

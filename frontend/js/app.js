@@ -1,6 +1,16 @@
 ﻿import { initRouter, showSection } from './router.js';
 import { checkApiHealth, setStatus } from './ui.js';
-import { request, fetchModels } from './api.js';
+import {
+  request,
+  fetchModels,
+  fetchOnboardingStatus,
+  updateOnboardingProfile,
+  resetOnboarding,
+  fetchWhatsAppStatus,
+  startWhatsApp,
+  stopWhatsApp,
+  fetchWhatsAppLogs
+} from './api.js';
 
 const modelSelect = document.getElementById('model-select');
 const modelAuto = document.getElementById('model-auto');
@@ -47,6 +57,11 @@ const getActiveModel = () => {
   return modelSelect.value;
 };
 
+const withModel = (payload) => {
+  const model = getActiveModel();
+  return model ? { ...payload, model } : payload;
+};
+
 const initModels = async () => {
   try {
     const data = await fetchModels();
@@ -85,7 +100,7 @@ document.getElementById('chat-send').addEventListener('click', async () => {
   chatInput.value = '';
   setStatus(chatStatus, 'Generating response...');
   try {
-    const data = await request('/ai/support', { message, model: getActiveModel() });
+    const data = await request('/ai/support', withModel({ message }));
     addChatBubble(data.response || 'No response received.', 'ai');
     setStatus(chatStatus, 'Response ready.');
   } catch (err) {
@@ -100,7 +115,7 @@ document.getElementById('sales-generate').addEventListener('click', async () => 
   if (!message) return;
   setStatus(status, 'Generating reply...');
   try {
-    const data = await request('/ai/sales-reply', { message, model: getActiveModel() });
+    const data = await request('/ai/sales-reply', withModel({ message }));
     output.textContent = data.response || 'No response received.';
     setStatus(status, 'Done.');
   } catch (err) {
@@ -115,7 +130,7 @@ document.getElementById('intent-detect').addEventListener('click', async () => {
   if (!message) return;
   setStatus(status, 'Detecting intent...');
   try {
-    const data = await request('/ai/intent', { message, model: getActiveModel() });
+    const data = await request('/ai/intent', withModel({ message }));
     output.textContent = data.intent || 'general_support';
     setStatus(status, 'Done.');
   } catch (err) {
@@ -132,11 +147,10 @@ document.getElementById('product-answer').addEventListener('click', async () => 
   if (!question || !productData) return;
   setStatus(status, 'Generating answer...');
   try {
-    const data = await request('/ai/product-qa', {
+    const data = await request('/ai/product-qa', withModel({
       question,
-      productData,
-      model: getActiveModel()
-    });
+      productData
+    }));
     output.textContent = data.response || 'No response received.';
     setStatus(status, 'Done.');
   } catch (err) {
@@ -151,7 +165,7 @@ document.getElementById('summary-generate').addEventListener('click', async () =
   if (!conversation) return;
   setStatus(status, 'Summarizing...');
   try {
-    const data = await request('/ai/summarize', { conversation, model: getActiveModel() });
+    const data = await request('/ai/summarize', withModel({ conversation }));
     output.textContent = data.summary || 'No summary received.';
     setStatus(status, 'Done.');
   } catch (err) {
@@ -163,3 +177,125 @@ initRouter();
 checkApiHealth();
 initModels();
 showSection('dashboard');
+
+const waStatus = document.getElementById('wa-status');
+const waQr = document.getElementById('wa-qr');
+const waStart = document.getElementById('wa-start');
+const waStop = document.getElementById('wa-stop');
+const onboardingProgressBar = document.getElementById('onboarding-progress-bar');
+const onboardingProgressLabel = document.getElementById('onboarding-progress-label');
+const onboardingSteps = document.getElementById('onboarding-steps');
+const onboardingForm = document.getElementById('onboarding-form');
+const onboardingSave = document.getElementById('onboarding-save');
+const onboardingStatus = document.getElementById('onboarding-status');
+const onboardingReset = document.getElementById('onboarding-reset');
+const whatsappLogs = document.getElementById('whatsapp-logs');
+const logsRefresh = document.getElementById('logs-refresh');
+const setupBanner = document.getElementById('setup-banner');
+
+const updateWhatsAppUI = (status) => {
+  waStatus.textContent = status.status || 'unknown';
+  waQr.textContent = status.qr ? 'Scan the QR shown in terminal.' : 'No QR currently.';
+};
+
+const loadWhatsAppStatus = async () => {
+  try {
+    const status = await fetchWhatsAppStatus();
+    updateWhatsAppUI(status);
+  } catch (err) {
+    waStatus.textContent = 'offline';
+  }
+};
+
+waStart.addEventListener('click', async () => {
+  waStatus.textContent = 'starting...';
+  const status = await startWhatsApp();
+  updateWhatsAppUI(status);
+});
+
+waStop.addEventListener('click', async () => {
+  const status = await stopWhatsApp();
+  updateWhatsAppUI(status);
+});
+
+const renderOnboardingSteps = (steps) => {
+  onboardingSteps.innerHTML = steps
+    .map((step) => `${step.done ? '[x]' : '[ ]'} ${step.question}`)
+    .join('\n');
+};
+
+const renderOnboardingForm = (steps, profile) => {
+  onboardingForm.innerHTML = '';
+  steps.forEach((step) => {
+    const wrapper = document.createElement('div');
+    const label = document.createElement('label');
+    label.textContent = step.question;
+    const input = document.createElement('textarea');
+    input.rows = 2;
+    input.name = step.key;
+    input.value = profile[step.key] || '';
+    wrapper.appendChild(label);
+    wrapper.appendChild(input);
+    onboardingForm.appendChild(wrapper);
+  });
+};
+
+const loadOnboardingStatus = async () => {
+  try {
+    const data = await fetchOnboardingStatus();
+    const progress = data.progress || { completed: 0, total: 0, steps: [] };
+    const percent = progress.total ? Math.round((progress.completed / progress.total) * 100) : 0;
+    onboardingProgressBar.style.width = `${percent}%`;
+    onboardingProgressLabel.textContent = `${percent}% complete`;
+    if (percent < 100) {
+      setupBanner.classList.add('show');
+    } else {
+      setupBanner.classList.remove('show');
+    }
+    renderOnboardingSteps(progress.steps || []);
+    renderOnboardingForm(progress.steps || [], data.profile || {});
+  } catch (err) {
+    onboardingProgressBar.style.width = '0%';
+    onboardingProgressLabel.textContent = '0% complete';
+    setupBanner.classList.add('show');
+  }
+};
+
+onboardingSave.addEventListener('click', async () => {
+  const fields = onboardingForm.querySelectorAll('textarea, input');
+  const payload = {};
+  fields.forEach((field) => {
+    payload[field.name] = field.value.trim();
+  });
+  onboardingStatus.textContent = 'Saving...';
+  try {
+    await updateOnboardingProfile(payload);
+    onboardingStatus.textContent = 'Saved.';
+    await loadOnboardingStatus();
+  } catch (err) {
+    onboardingStatus.textContent = 'Save failed.';
+  }
+});
+
+onboardingReset.addEventListener('click', async () => {
+  await resetOnboarding();
+  await loadOnboardingStatus();
+});
+
+const loadWhatsAppLogs = async () => {
+  try {
+    const data = await fetchWhatsAppLogs(50);
+    const logs = data.logs || [];
+    whatsappLogs.textContent = logs
+      .map((log) => `${log.createdAt} ${log.direction}: ${log.text}`)
+      .join('\n');
+  } catch (err) {
+    whatsappLogs.textContent = 'Unable to load logs.';
+  }
+};
+
+logsRefresh.addEventListener('click', loadWhatsAppLogs);
+
+loadWhatsAppStatus();
+loadOnboardingStatus();
+loadWhatsAppLogs();
