@@ -2,6 +2,7 @@
   "name": "smart-ai-support-frontend",
   "private": true,
   "version": "1.0.0",
+  "author": "Oluwayemi Oyinlola (oyinlola.site)",
   "type": "module",
   "scripts": {
     "dev": "vite",
