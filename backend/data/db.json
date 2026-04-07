@@ -1,7 +1,23 @@
-﻿{
-  "messages": [],
+{
+  "messages": [
+    {
+      "id": "b65lg3jfmnom70vd",
+      "type": "support",
+      "message": "Do you have this shirt available for sale?",
+      "response": "I’d love to help! Could you tell me which shirt you’re looking at—do you have the product name, color, or a link so I can check our current stock?",
+      "createdAt": "2026-04-07T12:47:51.337Z"
+    }
+  ],
   "intents": [],
   "salesReplies": [],
-  "productAnswers": [],
+  "productAnswers": [
+    {
+      "id": "mwy6dhexmnom7h8v",
+      "question": "Do you have this shirt available for sale?",
+      "productData": "blue size 24",
+      "response": "Yes, we have a blue shirt in size 24 available for sale.",
+      "createdAt": "2026-04-07T12:48:12.559Z"
+    }
+  ],
   "summaries": []
 }

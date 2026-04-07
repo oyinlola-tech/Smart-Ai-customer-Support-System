@@ -32,12 +32,13 @@ const router = express.Router();
  *       200:
  *         description: Support response
  */
-router.post(
-  '/support',
-  body('message').isString().isLength({ min: 2, max: 2000 }),
-  validate,
-  supportResponse
-);
+  router.post(
+    '/support',
+    body('message').isString().isLength({ min: 2, max: 2000 }),
+    body('model').optional().isString().isLength({ min: 2, max: 200 }),
+    validate,
+    supportResponse
+  );
 /**
  * @swagger
  * /api/ai/intent:
@@ -59,12 +60,13 @@ router.post(
  *       200:
  *         description: Intent result
  */
-router.post(
-  '/intent',
-  body('message').isString().isLength({ min: 2, max: 2000 }),
-  validate,
-  detectIntent
-);
+  router.post(
+    '/intent',
+    body('message').isString().isLength({ min: 2, max: 2000 }),
+    body('model').optional().isString().isLength({ min: 2, max: 200 }),
+    validate,
+    detectIntent
+  );
 
 /**
  * @swagger
@@ -87,12 +89,13 @@ router.post(
  *       200:
  *         description: Sales reply
  */
-router.post(
-  '/sales-reply',
-  body('message').isString().isLength({ min: 2, max: 2000 }),
-  validate,
-  salesReply
-);
+  router.post(
+    '/sales-reply',
+    body('message').isString().isLength({ min: 2, max: 2000 }),
+    body('model').optional().isString().isLength({ min: 2, max: 200 }),
+    validate,
+    salesReply
+  );
 /**
  * @swagger
  * /api/ai/product-qa:
@@ -117,13 +120,14 @@ router.post(
  *       200:
  *         description: Product answer
  */
-router.post(
-  '/product-qa',
-  body('question').isString().isLength({ min: 2, max: 2000 }),
-  body('productData').isString().isLength({ min: 2, max: 5000 }),
-  validate,
-  productQA
-);
+  router.post(
+    '/product-qa',
+    body('question').isString().isLength({ min: 2, max: 2000 }),
+    body('productData').isString().isLength({ min: 2, max: 5000 }),
+    body('model').optional().isString().isLength({ min: 2, max: 200 }),
+    validate,
+    productQA
+  );
 
 /**
  * @swagger
@@ -146,11 +150,12 @@ router.post(
  *       200:
  *         description: Summary
  */
-router.post(
-  '/summarize',
-  body('conversation').isString().isLength({ min: 10, max: 10000 }),
-  validate,
-  summarize
-);
+  router.post(
+    '/summarize',
+    body('conversation').isString().isLength({ min: 10, max: 10000 }),
+    body('model').optional().isString().isLength({ min: 2, max: 200 }),
+    validate,
+    summarize
+  );
 
 module.exports = router;

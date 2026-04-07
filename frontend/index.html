@@ -3,10 +3,153 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Smart AI Support</title>
+    <title>Smart AI Support Desk</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="stylesheet" href="/styles/base.css" />
+    <link rel="stylesheet" href="/styles/layout.css" />
+    <link rel="stylesheet" href="/styles/components.css" />
   </head>
   <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
+    <div class="app">
+      <aside class="sidebar">
+        <div class="brand">
+          <span class="tag">Smart AI</span>
+          <h1>Support Desk</h1>
+          <p>Fast customer replies.</p>
+        </div>
+        <nav class="nav" id="nav">
+          <button data-section="dashboard" class="nav-item active">Dashboard</button>
+          <button data-section="chat" class="nav-item">AI Chat</button>
+          <button data-section="sales" class="nav-item">Sales Reply</button>
+          <button data-section="intent" class="nav-item">Intent Detection</button>
+          <button data-section="product" class="nav-item">Product Q&A</button>
+          <button data-section="summary" class="nav-item">Summarization</button>
+        </nav>
+        <div class="status-card">
+          <div>
+            <span class="dot"></span>
+            <span>API Status</span>
+          </div>
+          <p id="api-status">Checking...</p>
+        </div>
+      </aside>
+
+      <main class="content">
+        <header class="topbar">
+          <div>
+            <span class="tag">Workspace</span>
+            <h2 id="page-title">Dashboard</h2>
+          </div>
+          <div class="top-actions">
+            <span class="pill">Groq AI</span>
+          </div>
+        </header>
+
+        <section id="dashboard" class="panel section active">
+          <h3>Customer Support Hub</h3>
+          <p>Pick a workflow and respond fast.</p>
+          <div class="model-panel">
+            <div>
+              <p class="label">Model</p>
+              <select id="model-select"></select>
+            </div>
+            <label class="toggle">
+              <input type="checkbox" id="model-auto" />
+              <span>Auto-rotate models</span>
+            </label>
+            <p class="hint" id="model-status">Loading models...</p>
+          </div>
+          <div class="card-grid">
+            <div class="card">
+              <h4>AI Chat Support</h4>
+              <p>Live responses in seconds.</p>
+              <button class="secondary" data-go="chat">Open</button>
+            </div>
+            <div class="card">
+              <h4>Sales Reply Generator</h4>
+              <p>Quick sales-ready replies.</p>
+              <button class="secondary" data-go="sales">Open</button>
+            </div>
+            <div class="card">
+              <h4>Intent Detection</h4>
+              <p>One label per message.</p>
+              <button class="secondary" data-go="intent">Open</button>
+            </div>
+            <div class="card">
+              <h4>Product Q&amp;A</h4>
+              <p>Answer from your data.</p>
+              <button class="secondary" data-go="product">Open</button>
+            </div>
+            <div class="card">
+              <h4>Summarization</h4>
+              <p>Short, clear summaries.</p>
+              <button class="secondary" data-go="summary">Open</button>
+            </div>
+          </div>
+        </section>
+
+        <section id="chat" class="panel section">
+          <h3>AI Chat</h3>
+          <p>1. Type message · 2. Send · 3. Copy reply</p>
+          <div class="chat-window" id="chat-window"></div>
+          <div class="form-row">
+            <textarea id="chat-input" placeholder="Type the customer message..."></textarea>
+            <button id="chat-send">Send</button>
+          </div>
+          <div class="status" id="chat-status"></div>
+        </section>
+
+        <section id="sales" class="panel section">
+          <h3>Sales Reply</h3>
+          <p>1. Paste request · 2. Generate · 3. Copy reply</p>
+          <textarea id="sales-input" placeholder="Customer message"></textarea>
+          <div class="form-row">
+            <button id="sales-generate">Generate Reply</button>
+            <span class="status" id="sales-status"></span>
+          </div>
+          <div class="output" id="sales-output"></div>
+        </section>
+
+        <section id="intent" class="panel section">
+          <h3>Intent Detection</h3>
+          <p>1. Paste message · 2. Detect · 3. Read label</p>
+          <textarea id="intent-input" placeholder="Customer message"></textarea>
+          <div class="form-row">
+            <button id="intent-detect">Detect Intent</button>
+            <span class="status" id="intent-status"></span>
+          </div>
+          <div class="output" id="intent-output"></div>
+        </section>
+
+        <section id="product" class="panel section">
+          <h3>Product Q&amp;A</h3>
+          <p>1. Add question · 2. Add product data · 3. Generate</p>
+          <textarea id="product-question" placeholder="Customer question"></textarea>
+          <textarea id="product-data" placeholder="Product data" rows="6"></textarea>
+          <div class="form-row">
+            <button id="product-answer">Generate Answer</button>
+            <span class="status" id="product-status"></span>
+          </div>
+          <div class="output" id="product-output"></div>
+        </section>
+
+        <section id="summary" class="panel section">
+          <h3>Summarization</h3>
+          <p>1. Paste thread · 2. Summarize · 3. Copy</p>
+          <textarea id="summary-input" placeholder="Conversation" rows="8"></textarea>
+          <div class="form-row">
+            <button id="summary-generate">Summarize</button>
+            <span class="status" id="summary-status"></span>
+          </div>
+          <div class="output" id="summary-output"></div>
+        </section>
+
+        <footer class="footer">
+          <span>Built by Oluwayemi Oyinlola · oyinlola.site</span>
+        </footer>
+      </main>
+    </div>
+
+    <script type="module" src="/js/app.js"></script>
   </body>
 </html>

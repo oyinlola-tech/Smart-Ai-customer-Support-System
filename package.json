@@ -1,12 +1,11 @@
-﻿{
+{
   "name": "smart-ai-support-system",
   "private": true,
   "version": "1.0.0",
   "scripts": {
-    "start": "concurrently \"npm run start --prefix backend\" \"npm run dev --prefix frontend\"",
-    "dev": "concurrently \"npm run dev --prefix backend\" \"npm run dev --prefix frontend\""
+    "install:all": "npm install --prefix backend",
+    "start": "npm run start --prefix backend",
+    "dev": "npm run dev --prefix backend"
   },
-  "devDependencies": {
-    "concurrently": "^9.2.0"
-  }
+  "devDependencies": {}
 }

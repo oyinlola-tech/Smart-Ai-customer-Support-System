@@ -13,10 +13,9 @@ This project is proprietary and not free to use. See `LICENSE` for details.
 Please review `SECURITY.md` for reporting vulnerabilities.
 
 ## Setup Instructions
-Root (runs both):
-1. npm install
+Root (backend + frontend served by backend):
+1. npm run install:all
 2. npm run dev
-3. npm run start
 
 Backend (only):
 1. cd backend
@@ -24,20 +23,19 @@ Backend (only):
 3. npm install
 4. npm start
 
-Frontend (only):
-1. cd frontend
-2. npm install
-3. npm run dev
+Frontend (served by backend):
+- Open `http://localhost:5000/`
+- Client routes: `/chat`, `/sales`, `/intent`, `/product`, `/summary`
 
 Backend runs on http://localhost:5000
-Frontend runs on http://localhost:5173
+Frontend is served by the backend on http://localhost:5000
 
 ## Environment Variables
 Backend .env file:
 - PORT=5000
 - GROQ_API_KEY=your_groq_api_key_here
 - GROQ_BASE_URL=https://api.groq.com/openai/v1
-- MODEL=llama3-8b-8192
+- MODEL=your_supported_groq_model
 
 ## Groq API Setup
 - Create a Groq account and generate an API key.

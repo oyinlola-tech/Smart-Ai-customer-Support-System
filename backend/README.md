@@ -18,3 +18,10 @@ Node.js + Express API that integrates Groq AI for customer support automation, i
 
 ## API Docs
 Swagger UI is available at http://localhost:5000/api/docs
+
+## Model Configuration
+Set `MODEL` in your `.env` to a currently supported Groq model.
+
+## Frontend
+The static frontend is served by the backend at http://localhost:5000/
+Client routes: /chat, /sales, /intent, /product, /summary

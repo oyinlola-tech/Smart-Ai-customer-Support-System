@@ -5,11 +5,13 @@ const rateLimit = require('express-rate-limit');
 const morgan = require('morgan');
 const dotenv = require('dotenv');
 const swaggerUi = require('swagger-ui-express');
+const path = require('path');
 const swaggerSpec = require('./config/swagger');
 const errorHandler = require('./middlewares/errorHandler');
 const sanitizeMiddleware = require('./middlewares/sanitize');
 const aiRoutes = require('./routes/aiRoutes');
 const healthRoutes = require('./routes/healthRoutes');
+const modelRoutes = require('./routes/modelRoutes');
 require('./config/db');
 
 dotenv.config();
@@ -32,7 +34,15 @@ app.use(sanitizeMiddleware);
 
 app.use('/api/health', healthRoutes);
 app.use('/api/ai', aiRoutes);
+app.use('/api/models', modelRoutes);
 app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+
+const frontendPath = path.join(__dirname, '..', 'frontend');
+app.use(express.static(frontendPath));
+
+app.get(/^(?!\/api).*/, (req, res) => {
+  res.sendFile(path.join(frontendPath, 'index.html'));
+});
 
 app.use((req, res) => {
   res.status(404).json({ success: false, message: 'Route not found' });
