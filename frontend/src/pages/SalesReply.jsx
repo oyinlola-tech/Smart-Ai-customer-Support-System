@@ -48,6 +48,7 @@ const SalesReply = () => {
         </button>
         {isLoading && <Loader label="Crafting a response" />}
       </div>
+      {response && <Alert type="success" message="Sales reply generated." />}
       {response && <ResponseCard title="AI Sales Reply" content={response} />}
     </div>
   );

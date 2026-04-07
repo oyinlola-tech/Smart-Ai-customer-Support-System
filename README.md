@@ -7,13 +7,18 @@ A full-stack web application that integrates Groq AI to automate customer suppor
 - Frontend: React, Tailwind CSS, Axios, React Router
 
 ## Setup Instructions
-Backend:
+Root (runs both):
+1. npm install
+2. npm run dev
+3. npm run start
+
+Backend (only):
 1. cd backend
 2. Copy .env.example to .env and update the values.
 3. npm install
 4. npm start
 
-Frontend:
+Frontend (only):
 1. cd frontend
 2. npm install
 3. npm run dev
@@ -40,5 +45,5 @@ Backend .env file:
 2. Open the dashboard and try each feature.
 3. Check backend data/db.json for stored logs.
 
-## Postman Collection
-A sample Postman collection is included at postman_collection.json.
+## Swagger
+Open http://localhost:5000/api/docs to test all endpoints directly in Swagger UI.

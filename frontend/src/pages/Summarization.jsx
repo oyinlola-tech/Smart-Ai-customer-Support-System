@@ -49,6 +49,7 @@ const Summarization = () => {
         </button>
         {isLoading && <Loader label="Summarizing" />}
       </div>
+      {summary && <Alert type="success" message="Summary is ready." />}
       {summary && <ResponseCard title="Summary" content={summary} />}
     </div>
   );

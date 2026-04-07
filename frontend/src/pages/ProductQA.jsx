@@ -56,6 +56,7 @@ const ProductQA = () => {
         </button>
         {isLoading && <Loader label="Searching product data" />}
       </div>
+      {response && <Alert type="success" message="Answer generated from product data." />}
       {response && <ResponseCard title="AI Answer" content={response} />}
     </div>
   );

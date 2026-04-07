@@ -48,6 +48,7 @@ const IntentDetection = () => {
         </button>
         {isLoading && <Loader label="Analyzing intent" />}
       </div>
+      {intent && <Alert type="success" message="Intent detected." />}
       {intent && <ResponseCard title="Detected Intent" content={intent} />}
     </div>
   );
