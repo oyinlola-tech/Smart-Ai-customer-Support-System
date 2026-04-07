@@ -80,6 +80,28 @@ export const stopWhatsApp = async () => {
   return res.json();
 };
 
+export const fetchWhatsAppConfig = async () => {
+  const res = await fetch(`${API_BASE}/whatsapp/config`);
+  if (!res.ok) {
+    const text = await res.text();
+    throw new Error(text || 'Failed to load WhatsApp config');
+  }
+  return res.json();
+};
+
+export const updateWhatsAppConfig = async (enabled) => {
+  const res = await fetch(`${API_BASE}/whatsapp/config`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ enabled })
+  });
+  if (!res.ok) {
+    const text = await res.text();
+    throw new Error(text || 'Failed to update WhatsApp config');
+  }
+  return res.json();
+};
+
 export const fetchWhatsAppLogs = async (limit = 50) => {
   const res = await fetch(`${API_BASE}/whatsapp/logs?limit=${limit}`);
   if (!res.ok) {

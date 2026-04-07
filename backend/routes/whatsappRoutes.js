@@ -3,7 +3,9 @@ const {
   startWhatsApp,
   stopWhatsApp,
   getWhatsAppStatus,
-  getWhatsAppLogs
+  getWhatsAppLogs,
+  setWhatsAppEnabled,
+  getWhatsAppConfig
 } = require('../controllers/whatsappController');
 
 const router = express.Router();
@@ -19,6 +21,30 @@ const router = express.Router();
  *         description: Status
  */
 router.get('/status', getWhatsAppStatus);
+
+/**
+ * @swagger
+ * /api/whatsapp/config:
+ *   get:
+ *     summary: Get WhatsApp config
+ *     tags: [WhatsApp]
+ *     responses:
+ *       200:
+ *         description: Config
+ */
+router.get('/config', getWhatsAppConfig);
+
+/**
+ * @swagger
+ * /api/whatsapp/config:
+ *   put:
+ *     summary: Enable or disable WhatsApp
+ *     tags: [WhatsApp]
+ *     responses:
+ *       200:
+ *         description: Updated config
+ */
+router.put('/config', setWhatsAppEnabled);
 
 /**
  * @swagger

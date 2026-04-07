@@ -46,10 +46,11 @@ Backend .env file:
 
 ## WhatsApp Integration
 1. Install backend dependencies (`npm run install:all`).
-2. Set `WA_OWNER_NUMBER` in `backend/.env` to your WhatsApp number (country code included).
-3. Start the backend and call `POST /api/whatsapp/start` (Swagger or curl).
-4. Scan the QR code shown in the terminal.
-5. Message your WhatsApp from the owner number to complete setup.
+2. Set `WA_ENABLED=true` in `backend/.env`.
+3. Set `WA_OWNER_NUMBER` in `backend/.env` to your WhatsApp number (country code included).
+4. Start the backend and call `POST /api/whatsapp/start` (Swagger or curl).
+5. Scan the QR code shown in the terminal.
+6. Message your WhatsApp from the owner number to complete setup.
 
 ## Testing Steps
 1. Start the backend and frontend.

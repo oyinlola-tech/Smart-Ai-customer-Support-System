@@ -1,12 +1,16 @@
-﻿.app {
+.app {
   display: grid;
   grid-template-columns: 260px 1fr;
   min-height: 100vh;
 }
 
 .sidebar {
-  padding: 24px 20px;
-  border-right: 1px solid var(--fg);
+  padding: 28px 22px;
+  border-right: 1px solid var(--border);
+  background: var(--surface);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
 .brand h1 {
@@ -16,19 +20,21 @@
 
 .brand p {
   margin: 0;
-  color: var(--fg);
-  opacity: 0.7;
+  color: var(--muted);
   font-size: 13px;
 }
+
 .tag {
   font-size: 10px;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  opacity: 0.7;
+  color: var(--muted);
 }
 
 .content {
-  padding: 20px 28px 28px;
+  padding: 28px 32px 36px;
+  max-width: 1100px;
+  margin: 0 auto;
 }
 
 .topbar {
@@ -46,9 +52,10 @@
 .footer {
   margin-top: 20px;
   font-size: 12px;
-  opacity: 0.7;
+  color: var(--muted);
   text-align: right;
 }
+
 @media (max-width: 960px) {
   .app {
     grid-template-columns: 1fr;
@@ -58,7 +65,6 @@
     position: sticky;
     top: 0;
     z-index: 10;
-    background: var(--bg);
   }
 
   .content {

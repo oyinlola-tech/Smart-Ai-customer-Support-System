@@ -9,7 +9,9 @@ import {
   fetchWhatsAppStatus,
   startWhatsApp,
   stopWhatsApp,
-  fetchWhatsAppLogs
+  fetchWhatsAppLogs,
+  fetchWhatsAppConfig,
+  updateWhatsAppConfig
 } from './api.js';
 
 const modelSelect = document.getElementById('model-select');
@@ -20,7 +22,8 @@ let models = [];
 let modelIndex = 0;
 const loadModelSettings = () => {
   const savedModel = localStorage.getItem('model.selected');
-  const auto = localStorage.getItem('model.auto') === 'true';
+  const autoStored = localStorage.getItem('model.auto');
+  const auto = autoStored === null ? true : autoStored === 'true';
   modelAuto.checked = auto;
   return { savedModel, auto };
 };
@@ -66,9 +69,13 @@ const initModels = async () => {
   try {
     const data = await fetchModels();
     models = data;
-    const { savedModel } = loadModelSettings();
+    const { savedModel, auto } = loadModelSettings();
     populateModels(models, savedModel);
-    setModelStatus(models.length ? 'Models ready.' : 'No models returned.');
+    if (auto) {
+      setModelStatus('Auto-rotate enabled by default.');
+    } else {
+      setModelStatus(models.length ? 'Models ready.' : 'No models returned.');
+    }
   } catch (err) {
     setModelStatus('Failed to load models. Check your API key.');
   }
@@ -182,6 +189,7 @@ const waStatus = document.getElementById('wa-status');
 const waQr = document.getElementById('wa-qr');
 const waStart = document.getElementById('wa-start');
 const waStop = document.getElementById('wa-stop');
+const waEnabled = document.getElementById('wa-enabled');
 const onboardingProgressBar = document.getElementById('onboarding-progress-bar');
 const onboardingProgressLabel = document.getElementById('onboarding-progress-label');
 const onboardingSteps = document.getElementById('onboarding-steps');
@@ -206,6 +214,20 @@ const loadWhatsAppStatus = async () => {
     waStatus.textContent = 'offline';
   }
 };
+
+const loadWhatsAppConfig = async () => {
+  try {
+    const data = await fetchWhatsAppConfig();
+    waEnabled.checked = Boolean(data.config?.enabled);
+  } catch (err) {
+    waEnabled.checked = false;
+  }
+};
+
+waEnabled.addEventListener('change', async () => {
+  await updateWhatsAppConfig(waEnabled.checked);
+  await loadWhatsAppStatus();
+});
 
 waStart.addEventListener('click', async () => {
   waStatus.textContent = 'starting...';
@@ -297,5 +319,6 @@ const loadWhatsAppLogs = async () => {
 logsRefresh.addEventListener('click', loadWhatsAppLogs);
 
 loadWhatsAppStatus();
+loadWhatsAppConfig();
 loadOnboardingStatus();
 loadWhatsAppLogs();

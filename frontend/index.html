@@ -49,7 +49,7 @@
 
         <section id="dashboard" class="panel section active">
           <h3>Customer Support Hub</h3>
-          <p>Pick a workflow and respond fast.</p>
+          <p>Pick a workflow, get a response, send it.</p>
           <div class="model-panel">
             <div>
               <p class="label">Model</p>
@@ -92,7 +92,7 @@
 
         <section id="chat" class="panel section">
           <h3>AI Chat</h3>
-          <p>1. Type message · 2. Send · 3. Copy reply</p>
+          <p>1. Type message · 2. Send · 3. Copy</p>
           <div class="chat-window" id="chat-window"></div>
           <div class="form-row">
             <textarea id="chat-input" placeholder="Type the customer message..."></textarea>
@@ -103,7 +103,7 @@
 
         <section id="sales" class="panel section">
           <h3>Sales Reply</h3>
-          <p>1. Paste request · 2. Generate · 3. Copy reply</p>
+          <p>1. Paste request · 2. Generate · 3. Copy</p>
           <textarea id="sales-input" placeholder="Customer message"></textarea>
           <div class="form-row">
             <button id="sales-generate">Generate Reply</button>
@@ -114,7 +114,7 @@
 
         <section id="intent" class="panel section">
           <h3>Intent Detection</h3>
-          <p>1. Paste message · 2. Detect · 3. Read label</p>
+          <p>1. Paste message · 2. Detect · 3. Copy</p>
           <textarea id="intent-input" placeholder="Customer message"></textarea>
           <div class="form-row">
             <button id="intent-detect">Detect Intent</button>
@@ -150,15 +150,23 @@
           <h3>WhatsApp Control</h3>
           <p>1. Start client · 2. Scan QR · 3. Complete setup in this dashboard</p>
           <div class="whatsapp-grid">
-            <div class="card">
-              <h4>Client Status</h4>
-              <p id="wa-status">Checking...</p>
-              <div class="form-row">
-                <button id="wa-start">Start</button>
-                <button class="secondary" id="wa-stop">Stop</button>
-              </div>
-              <div class="output" id="wa-qr">QR code appears in terminal.</div>
+          <div class="card">
+            <h4>Client Status</h4>
+            <p id="wa-status">Checking...</p>
+            <div class="form-row">
+              <button id="wa-start">Start</button>
+              <button class="secondary" id="wa-stop">Stop</button>
             </div>
+            <div class="output" id="wa-qr">QR code appears in terminal.</div>
+          </div>
+          <div class="card">
+            <h4>Enable WhatsApp</h4>
+            <label class="toggle">
+              <input type="checkbox" id="wa-enabled" />
+              <span>Enable WhatsApp integration</span>
+            </label>
+            <p class="hint">When disabled, WhatsApp won’t require Puppeteer.</p>
+          </div>
           <div class="card">
             <h4>Onboarding Progress</h4>
             <div class="progress-bar">
