@@ -6,6 +6,12 @@ A full-stack web application that integrates Groq AI to automate customer suppor
 - Backend: Node.js, Express, Groq API, Lowdb (JSON), Swagger, Helmet, CORS, Rate limiting
 - Frontend: React, Tailwind CSS, Axios, React Router
 
+## License
+This project is proprietary and not free to use. See `LICENSE` for details.
+
+## Security
+Please review `SECURITY.md` for reporting vulnerabilities.
+
 ## Setup Instructions
 Root (runs both):
 1. npm install
